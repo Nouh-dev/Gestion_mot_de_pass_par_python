@@ -1,7 +1,15 @@
 #Password Manager
 import getpass
+from openpyxl import Workbook
 accounts = []
 mpwd = "1234"
+def save_excel():
+    page_excel = Workbook()
+    page = page_excel.active
+    page.append(["site","username","password"])
+    for i in accounts:
+        page.append([i["site"],i["username"],i["password"]])
+    page_excel.save("save password.xlsx")
 
 def show():
     pass1 = getpass.getpass("Enter password...")
@@ -62,6 +70,7 @@ while True:
                 del_op=int(input("Please enter a number..."))
                 accounts.pop(delete)
     elif num == 0:
+        save_excel()
         print("good bye")
         break
     else:
